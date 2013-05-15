@@ -138,7 +138,7 @@
 	<body <?php body_class(); ?>>
 
 		<div class="row container">
-			<div class="twelve columns">
+			<div class="large-12 columns">
 				<header role="banner" id="top-header">
 					
 					<div class="siteinfo">
