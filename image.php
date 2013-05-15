@@ -2,7 +2,7 @@
 			
 			<div id="content" class="clearfix">
 			
-				<div id="main" class="eight columns clearfix" role="main">
+				<div id="main" class="large-8 columns clearfix" role="main">
 
 					<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 					
@@ -33,7 +33,7 @@
 							</div>
 							
 							<!-- To display thumbnail of previous and next image in the photo gallery -->
-							<ul class="block-grid two-up">
+							<ul class="large-block-grid-2">
 								<li class="next pull-left"><?php next_image_link() ?></li>
 								<li class="previous pull-right"><?php previous_image_link() ?></li>
 							</ul>
@@ -69,7 +69,7 @@
 			
 				</div> <!-- end #main -->
 				
-				<div id="sidebar1" class="four columns clearfix" role="complementary">
+				<div id="sidebar1" class="large-4 columns clearfix" role="complementary">
 				
 					<?php if ( !empty($post->post_excerpt) ) { ?> 
 					<div class="caption panel"><?php echo get_the_excerpt(); ?></div>
