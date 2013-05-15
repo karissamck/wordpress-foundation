@@ -8,7 +8,7 @@ Template Name: Full Width Page
 			
 			<div id="content" class="clearfix">
 			
-				<div id="main" class="twelve columns clearfix" role="main">
+				<div id="main" class="large-12 columns clearfix" role="main">
 
 					<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 					
