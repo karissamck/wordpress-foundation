@@ -33,26 +33,18 @@ Template Name: Homepage
 										$featured_src = wp_get_attachment_image_src( $post_thumbnail_id, 'wpf-home-featured' );
 								?>
 								
-								<div style="background-color: #F2F2F2;">
-									<h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
-									<?php the_excerpt(); ?>
-									<p><a href="<?php the_permalink(); ?>" class="button nice radius">Read more »</a></p>
-								</div>
+								<li style="background-color: #F2F2F2; height:100%;">
+                                        <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
+                                        <?php the_excerpt(); ?>
+                                        <p><a href="<?php the_permalink(); ?>" class="button nice radius">Read more »</a></p>
+								</li>
 								
 								<?php endforeach; ?>
 								<?php $post = $tmp_post; ?>
 
-							</div>
+							</ul>
 							
 						</header>
-
-						<script type="text/javascript">
-						   $(window).load(function() {
-						       $('#featured').orbit({ 
-						       	fluid: '16x6'
-						       });
-						   });
-						</script>
 
 						<?php } ?>
 
