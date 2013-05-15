@@ -105,7 +105,7 @@ function theme_styles()
 { 
     // Bring in Open Sans from Google fonts
     wp_register_style( 'open-sans', 'http://fonts.googleapis.com/css?family=Open+Sans:300,800');
-    wp_register_style( 'foundation-css', get_template_directory_uri() . '/stylesheets/foundation.css', array(), '4.0', 'all' );
+    wp_register_style( 'foundation-css', get_template_directory_uri() . '/stylesheets/foundation.min.css', array(), '4.0', 'all' );
     wp_register_style( 'normalize-css', get_template_directory_uri() . '/stylesheets/normalize.css');
     
     wp_enqueue_style( 'open-sans' );
