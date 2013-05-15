@@ -1,14 +1,14 @@
 			<footer role="contentinfo">
 			
-					<div class="twelve columns">
+					<div class="large-12 columns">
 
 						<div class="row">
 
-							<nav class="ten columns clearfix">
+							<nav class="large-10 columns clearfix">
 								<?php bones_footer_links(); ?>
 							</nav>
 
-							<p class="attribution two columns"><a href="http://320press.com" id="credit320" title="By the dudes of 320press">320press</a></p>
+							<p class="attribution large-2 columns"><a href="http://320press.com" id="credit320" title="By the dudes of 320press">320press</a></p>
 
 						</div>
 
