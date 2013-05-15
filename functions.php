@@ -105,11 +105,12 @@ function theme_styles()
 { 
     // Bring in Open Sans from Google fonts
     wp_register_style( 'open-sans', 'http://fonts.googleapis.com/css?family=Open+Sans:300,800');
-    // This is the compiled css file from SCSS
-    wp_register_style( 'foundation-app', get_template_directory_uri() . '/stylesheets/app.css', array(), '3.0', 'all' );
+    wp_register_style( 'foundation-css', get_template_directory_uri() . '/stylesheets/foundation.css', array(), '4.0', 'all' );
+    wp_register_style( 'normalize-css', get_template_directory_uri() . '/stylesheets/normalize.css');
     
     wp_enqueue_style( 'open-sans' );
-    wp_enqueue_style( 'foundation-app' );
+    wp_enqueue_style( 'foundation-css' );
+    wp_enqueue_style( 'normalize-css' );
 }
 
 add_action('wp_enqueue_scripts', 'theme_styles');
@@ -118,23 +119,23 @@ add_action('wp_enqueue_scripts', 'theme_styles');
 
 /* pull jquery from google's CDN. If it's not available, grab the local copy. Code from wp.tutsplus.com :-) */
 
-$url = 'http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'; // the URL to check against  
+$url = 'http://cdnjs.cloudflare.com/ajax/libs/zepto/1.0/zepto.min.js'; // register the external file 
 $test_url = @fopen($url,'r'); // test parameters  
 if( $test_url !== false ) { // test if the URL exists  
 
     function load_external_jQuery() { // load external file  
-        wp_deregister_script( 'jquery' ); // deregisters the default WordPress jQuery  
-        wp_register_script('jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'); // register the external file  
-        wp_enqueue_script('jquery'); // enqueue the external file  
+        wp_deregister_script( 'zepto' ); // deregisters the default WordPress jQuery  
+        wp_register_script('zepto', 'http://cdnjs.cloudflare.com/ajax/libs/zepto/1.0/zepto.min.js'); // register the external file
+        wp_enqueue_script('zepto'); // enqueue the external file  
     }  
 
     add_action('wp_enqueue_scripts', 'load_external_jQuery'); // initiate the function  
 } else {  
 
     function load_local_jQuery() {  
-        wp_deregister_script('jquery'); // initiate the function  
-        wp_register_script('jquery', get_template_directory_uri().'/javascripts/jquery.min.js', __FILE__, '1.7.2'); // register the local file  
-        wp_enqueue_script('jquery'); // enqueue the local file  
+        wp_deregister_script('zepto'); // initiate the function  
+        wp_register_script('zepto', get_template_directory_uri().'/javascripts/foundation/vendor/zepto.js', __FILE__, '1.0'); // register the local file  
+        wp_enqueue_script('zepto'); // enqueue the local file  
     }  
 
     add_action('wp_enqueue_scripts', 'load_local_jQuery'); // initiate the function  
@@ -149,26 +150,27 @@ function modernize_it(){
 add_action( 'wp_enqueue_scripts', 'modernize_it' );
 
 function foundation_js(){
-    wp_register_script( 'foundation-reveal', get_template_directory_uri() . '/javascripts/foundation/jquery.reveal.js', 'jQuery', '1.1', true ); 
-    wp_enqueue_script( 'foundation-reveal' );
-    wp_register_script( 'foundation-orbit', get_template_directory_uri() . '/javascripts/foundation/jquery.orbit-1.4.0.js', 'jQuery', '1.4.0', true ); 
+    wp_register_script( 'foundation', get_template_directory_uri() . '/javascripts/foundation/foundation.js');
+    wp_enqueue_script( 'foundation' );
+    wp_register_script( 'foundation-orbit', get_template_directory_uri() . '/javascripts/foundation/foundation.orbit.js');
     wp_enqueue_script( 'foundation-orbit' );
-    wp_register_script( 'foundation-custom-forms', get_template_directory_uri() . '/javascripts/foundation/jquery.customforms.js', 'jQuery', '1.0', true ); 
-    wp_enqueue_script( 'foundation-custom-forms' );
-    wp_register_script( 'foundation-placeholder', get_template_directory_uri() . '/javascripts/foundation/jquery.placeholder.min.js', 'jQuery', '2.0.7', true ); 
+    wp_register_script( 'foundation-topbar', get_template_directory_uri() . '/javascripts/foundation/foundation.topbar.js');
+    wp_enqueue_script( 'foundation-topbar' );
+    wp_register_script( 'foundation-forms', get_template_directory_uri() . '/javascripts/foundation/foundation.customforms.js');
+    wp_enqueue_script( 'foundation-forms' );
+    wp_register_script( 'foundation-tips', get_template_directory_uri() . '/javascripts/foundation/foundation.tooltips.js');
+    wp_enqueue_script( 'foundation-tips' );
+    wp_register_script( 'foundation-placeholder', get_template_directory_uri() . '/javascripts/foundation/foundation.placeholder.js');
     wp_enqueue_script( 'foundation-placeholder' );
-    wp_register_script( 'foundation-tooltips', get_template_directory_uri() . '/javascripts/foundation/jquery.tooltips.js', 'jQuery', '2.0.1', true ); 
-    wp_enqueue_script( 'foundation-tooltips' );
-    wp_register_script( 'foundation-app', get_template_directory_uri() . '/javascripts/app.js', 'jQuery', '1.0', true ); 
-    wp_enqueue_script( 'foundation-app' );
-    wp_register_script( 'foundation-off-canvas', get_template_directory_uri() . '/javascripts/foundation/off-canvas.js', 'jQuery', '1.0', true ); 
+    wp_register_script( 'foundation-off-canvas', get_template_directory_uri() . '/javascripts/foundation/off-canvas.js', 'zepto', '1.0', true ); 
     wp_enqueue_script( 'foundation-off-canvas' );
+
 }
 
 add_action('wp_enqueue_scripts', 'foundation_js');
 
 function wp_foundation_js(){
-    wp_register_script( 'wp-foundation-js', get_template_directory_uri() . '/library/js/scripts.js', 'jQuery', '1.0', true);
+    wp_register_script( 'wp-foundation-js', get_template_directory_uri() . '/library/js/scripts.js', 'zepto', '1.0', true);
     wp_enqueue_script( 'wp-foundation-js' );
 }
 
@@ -182,7 +184,7 @@ function bones_comments($comment, $args, $depth) {
 	<li <?php comment_class(); ?>>
 		<article id="comment-<?php comment_ID(); ?>" class="panel clearfix">
 			<div class="comment-author vcard row clearfix">
-                <div class="twelve columns">
+                <div class="large-12  columns">
                     <div class="
                         <?php
                         $authID = get_the_author_meta('ID');
@@ -194,10 +196,10 @@ function bones_comments($comment, $args, $depth) {
                         ?>
                     ">
                         <div class="row">
-            				<div class="avatar two columns">
+            				<div class="avatar large-2 columns">
             					<?php echo get_avatar($comment,$size='75',$default='<path_to_url>' ); ?>
             				</div>
-            				<div class="ten columns">
+            				<div class="large-10 columns">
             					<?php printf(__('<h4 class="span8">%s</h4>'), get_comment_author_link()) ?>
             					<time datetime="<?php echo comment_time('Y-m-j'); ?>"><a href="<?php echo htmlspecialchars( get_comment_link( $comment->comment_ID ) ) ?>"><?php comment_time('F jS, Y'); ?> </a></time>
             					
@@ -225,7 +227,7 @@ function bones_comments($comment, $args, $depth) {
 
 // Add grid classes to comments
 function add_class_comments($classes){
-    array_push($classes, "twelve", "columns");
+    array_push($classes, "large-12", "columns");
     return $classes;
 }
 add_filter('comment_class', 'add_class_comments');
@@ -252,11 +254,11 @@ function custom_password_form() {
 	$o = '<div class="clearfix"><form action="' . get_option('siteurl') . '/wp-pass.php" method="post">
 	' . __( "<p>This post is password protected. To view it please enter your password below:</p>" ) . '
 	<div class="row collapse">
-        <div class="twelve columns"><label for="' . $label . '">' . __( "Password:" ) . ' </label></div>
-        <div class="eight columns">
+        <div class="large-12 columns"><label for="' . $label . '">' . __( "Password:" ) . ' </label></div>
+        <div class="large-8 columns">
             <input name="post_password" id="' . $label . '" type="password" size="20" class="input-text" />
         </div>
-        <div class="four columns">
+        <div class="large-4 columns">
             <input type="submit" name="Submit" class="postfix button nice blue radius" value="' . esc_attr__( "Submit" ) . '" />
         </div>
 	</div>
